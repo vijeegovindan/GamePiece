@@ -7,6 +7,11 @@ class GamePiece{
     boolean frozen;
     String name;
     String color;
+    int minX;
+    int maxX;
+    int minY;
+    int maxY;
+
 
     public GamePiece() {
         this.positionX = 0;
@@ -14,8 +19,27 @@ class GamePiece{
         this.frozen = false;
         this.name = "This game";
         this.color = "brown";
+        int minX = 0;
+        int maxX = 100;
+        int minY = 0;
+        int maxY = 500;
     }
 
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
 
     public int getPositionX() {
         return positionX;
@@ -51,8 +75,10 @@ class GamePiece{
 
     public void move(int x, int y){
         if(!frozen){
-            this.positionX = x;
-            this.positionY = y;
+         if( x >=0 && x <=100 && y>=0 && y<=500){
+                this.positionX = x;
+                this.positionY = y;
+         }
         }
     }
 
@@ -72,27 +98,62 @@ public class Main {
 
         GamePiece gamepiece = new GamePiece();
 
-        System.out.println("Test: The game piece is frozen");
+        System.out.println("Test - Expected: Piece is frozen -  can't move");
         gamepiece.freeze();
         if(gamepiece.frozen){
-           System.out.println("Passed: The game piece is frozen");
+           System.out.println("Test - Passed: The game piece can't move");
         }
 
-        System.out.println("Test: The game piece is not frozen");
-        gamepiece.unfreeze();
+        System.out.println("--------------------------------");
 
-        if(!gamepiece.frozen){
-            System.out.println("Passed: The game piece can move");
-        }
-
-        System.out.println("Test: The game piece moves to new position when itz not frozen");
+        System.out.println("Test - Expected : Piece is not frozen - can move");
         gamepiece.unfreeze();
         gamepiece.move(0,5);
-        System.out.println("Passed: The new position is " + gamepiece.positionX + "," + gamepiece.positionY);
+        if(!gamepiece.frozen){
+            System.out.println("Test - Passed: The game piece can move. Position is ("+ gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
 
-        System.out.println("Test: The game piece doesnt move and retain the position when frozen");
+        System.out.println("--------------------------------");
+
+        System.out.println("Test - Expected: The game piece moves to new position when itz not frozen. Position(10,10)");
+        gamepiece.unfreeze();
+        gamepiece.move(10,10);
+        System.out.println("Test - Passed: The new position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Test - Expected: The piece is frozen and retains the same position");
         gamepiece.freeze();
         gamepiece.move(0,5);
-        System.out.println("Passed: The same position is " + gamepiece.positionX + "," + gamepiece.positionY);
+        System.out.println("Test - Passed: The piece is in the same position (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Test - Expected : Setting of min &  max position for x : (55,100)");
+        gamepiece.unfreeze();
+        gamepiece.move(55,100);
+        System.out.println("Test should pass and the new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Test: Setting of min &  max position for x : (101,100)");
+        gamepiece.unfreeze();
+        gamepiece.move(101,100);
+        System.out.println("Test should fail-out of range and the position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Test: Setting of min &  max position for y: (55, 499)");
+        gamepiece.unfreeze();
+        gamepiece.move(55,499);
+        System.out.println("The new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+
+        System.out.println("--------------------------------");
+
+        System.out.println("Test: Setting of min &  max position for y: (55, 600)");
+        gamepiece.unfreeze();
+        gamepiece.move(55,600);
+        System.out.println("Test should fail-out of range and the last position is (" + gamepiece.positionX + "," + gamepiece.positionY +")");
+
     }
 }
