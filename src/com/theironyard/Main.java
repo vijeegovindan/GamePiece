@@ -103,6 +103,10 @@ public class Main {
         if(gamepiece.frozen){
            System.out.println("Test - Passed: The game piece can't move");
         }
+        else{
+            System.out.println("Test - Failed: The game piece can move");
+        }
+
 
         System.out.println("--------------------------------");
 
@@ -112,48 +116,83 @@ public class Main {
         if(!gamepiece.frozen){
             System.out.println("Test - Passed: The game piece can move. Position is ("+ gamepiece.positionX + "," + gamepiece.positionY + ")");
         }
+        else {
+            System.out.println("Test - Failed: The game piece can't move. Position is ("+ gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
 
         System.out.println("--------------------------------");
 
         System.out.println("Test - Expected: The game piece moves to new position when itz not frozen. Position(10,10)");
         gamepiece.unfreeze();
         gamepiece.move(10,10);
-        System.out.println("Test - Passed: The new position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        if(gamepiece.positionX == 10 && gamepiece.positionY == 10){
+            System.out.println("Test - Passed: The new position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else{
+            System.out.println("Test - Failed: The  position is the same");
+        }
+
 
         System.out.println("--------------------------------");
 
         System.out.println("Test - Expected: The piece is frozen and retains the same position");
         gamepiece.freeze();
         gamepiece.move(0,5);
-        System.out.println("Test - Passed: The piece is in the same position (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        if(gamepiece.positionX == 10 && gamepiece.positionY == 10) {
+            System.out.println("Test - Passed: The piece is in the same position (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else{
+            System.out.println("Test failed : The  position is not the same. New position: " + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+
 
         System.out.println("--------------------------------");
 
-        System.out.println("Test - Expected : Setting of min &  max position for x : (55,100)");
+        System.out.println("Test - Expected : Setting of min &  max position for (x,y) : (55,100)");
         gamepiece.unfreeze();
         gamepiece.move(55,100);
-        System.out.println("Test should pass and the new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        if(gamepiece.positionX == 55 && gamepiece.positionY == 100) {
+            System.out.println("Test should pass and the new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else {
+            System.out.println("Test failed and the position is the same");
+        }
 
         System.out.println("--------------------------------");
 
-        System.out.println("Test: Setting of min &  max position for x : (101,100)");
+        System.out.println("Test: should fail - out of range for (x,y) : (101,100)");
         gamepiece.unfreeze();
         gamepiece.move(101,100);
-        System.out.println("Test should fail-out of range and the position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        if(gamepiece.positionX == 101 && gamepiece.positionY == 100) {
+            System.out.println("Test should not have passed and the position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else{
+            System.out.println("Test failed as expected and the position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
 
         System.out.println("--------------------------------");
 
-        System.out.println("Test: Setting of min &  max position for y: (55, 499)");
+        System.out.println("Test: Setting of min &  max position for (x,y): (55, 499)");
         gamepiece.unfreeze();
         gamepiece.move(55,499);
-        System.out.println("The new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        if(gamepiece.positionX == 55 && gamepiece.positionY == 499) {
+            System.out.println("Test passed and the new position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else{
+            System.out.println("Test failed and the position is the same");
+        }
 
         System.out.println("--------------------------------");
 
-        System.out.println("Test: Setting of min &  max position for y: (55, 600)");
+        System.out.println("Test: should fail - out of range for (x,y): (55, 600)");
         gamepiece.unfreeze();
         gamepiece.move(55,600);
-        System.out.println("Test should fail-out of range and the last position is (" + gamepiece.positionX + "," + gamepiece.positionY +")");
+        if(gamepiece.positionX == 55 && gamepiece.positionY == 600) {
+            System.out.println("Test should pass not have passed and the last position is (" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
+        else{
+            System.out.println("Test failed as expected and the position is(" + gamepiece.positionX + "," + gamepiece.positionY + ")");
+        }
 
     }
 }
